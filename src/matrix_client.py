@@ -69,6 +69,9 @@ class MatrixClient(AsyncClient):
                 "msgtype": "m.text", 
                 "body": message
             },
+            ############################
+            # Ignore untrusted devices #
+            ############################
             ignore_unverified_devices=True
         )
         self.log("info", f"Message has been sent: {message}")
