@@ -1,4 +1,15 @@
-# Example
+# Usage
+
+## Request
+
+```python
+import requests
+
+data = {"message": "Test message"}
+response = requests.post("http://ip:port/", json=data)
+```
+
+# Examples
 
 `.env` file:
 
