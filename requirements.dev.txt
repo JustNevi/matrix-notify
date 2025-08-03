@@ -1,3 +1,5 @@
 python-dotenv==1.1.1
 python-olm==3.2.16
 matrix-nio[e2e]==0.25.2
+Flask==3.1.1
+requests==2.32.4
