@@ -65,7 +65,7 @@ def index():
 
         return jsonify({"status": "success"})
     except Exception as e:
-        return jsonify({"status": "error", "message": e})
+        return jsonify({"status": "error", "message": str(e)})
 
 
 if (__name__ == "__main__"):
