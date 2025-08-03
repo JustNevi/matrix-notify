@@ -28,13 +28,13 @@ docker run -d --rm --env-file .env -p 8000:8000 matrix-notify:latest
 `.env` file:
 
 ```
-BACKUP_PATH="../files/backup/"
+BACKUP_PATH=../files/backup/
 
-HOMESERVER="https://matrix.example.org"
-USER_ID="example_user_id"
-USER_PASS="super-password-123"
+HOMESERVER=https://matrix.example.org
+USER_ID=example_user_id
+USER_PASS=super-password-123
 
-ROOM_ID="!sdDSfjasdflkjTESTROOM:matrix.example.org"
+ROOM_ID=!sdDSfjasdflkjTESTROOM:matrix.example.org
 
 ```
 
