@@ -37,6 +37,11 @@ COPY --chown=appuser:appuser src src
 
 # Set environment variables to optimize Python
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1 
+ENV PYTHONUNBUFFERED=1
+
+# Switch to non-root user
+USER appuser
+
+EXPOSE 8000
 
 CMD ["gunicorn", "--chdir=/opt/matrix-notify/src/", "--bind=0.0.0.0:8000", "--workers=3", "main:app"]
