@@ -39,12 +39,12 @@ client = MatrixClient(
 
 
 async def main(message):
+    await client.login(USER_PASS)
+
     # Use full_state=True here to pull any room invites that occurred or
     # messages sent in rooms _before_ this program connected to the
     # Matrix server
     await client.sync(timeout=30000, full_state=True)
-
-    await client.login(USER_PASS)
 
     await client.send_simple_message(ROOM_ID, message)
 
