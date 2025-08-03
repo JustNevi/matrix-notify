@@ -1,0 +1,14 @@
+# Python
+.venv
+__pycache__
+
+# Database
+files/backup/*
+
+# Local
+.env
+*.dev*
+.git
+Dockerfile
+.dockerignore
+*.md
