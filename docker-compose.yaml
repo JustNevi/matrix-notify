@@ -1,0 +1,11 @@
+services:
+  matrix-notify:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      BACKUP_PATH: ${BACKUP_PATH}  
+      HOMESERVER: ${HOMESERVER}  
+      USER_ID: ${USER_ID}  
+      USER_PASS: ${USER_PASS}  
+      ROOM_ID: ${ROOM_ID}  
