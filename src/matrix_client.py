@@ -23,6 +23,10 @@ class MatrixClient(AsyncClient):
         self._load_config()
 
         self._is_logged = False
+       
+        # Events
+        # handle room invites
+        self.add_event_callback(self.room_invite_callback, InviteEvent)
 
 
     # If no config has been loaded, the password will be used to log in.
@@ -59,6 +63,10 @@ class MatrixClient(AsyncClient):
             else:
                 raise Exception("Cannot be completed because login is not possible.")
         return wrapper
+
+    def room_invite_callback(self, room: MatrixRoom, event: InviteEvent):
+        self.join(room.room_id)
+        self.log("info", f"Room {room.name} is encrypted: {room.encrypted}")
 
     @_loggedin
     async def send_simple_message(self, room_id, message):
