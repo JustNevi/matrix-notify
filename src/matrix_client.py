@@ -64,8 +64,8 @@ class MatrixClient(AsyncClient):
                 raise Exception("Cannot be completed because login is not possible.")
         return wrapper
 
-    def room_invite_callback(self, room: MatrixRoom, event: InviteEvent):
-        self.join(room.room_id)
+    async def room_invite_callback(self, room: MatrixRoom, event: InviteEvent):
+        await self.join(room.room_id)
         self.log("info", f"Room {room.name} is encrypted: {room.encrypted}")
 
     @_loggedin
