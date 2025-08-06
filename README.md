@@ -1,14 +1,5 @@
 # Usage
 
-## Request
-
-```python
-import requests
-
-data = {"message": "Test message"}
-response = requests.post("http://ip:port/", json=data)
-```
-
 ## Docker
 
 ### Build
