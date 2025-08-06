@@ -26,6 +26,7 @@ class MatrixClient(AsyncClient):
        
         # Events
         # handle room invites
+        self.join_event = asyncio.Event()
         self.add_event_callback(self.room_invite_callback, InviteEvent)
 
 
@@ -67,8 +68,33 @@ class MatrixClient(AsyncClient):
     async def room_invite_callback(self, room: MatrixRoom, event: InviteEvent):
         await self.join(room.room_id)
         self.log("info", f"Room {room.name} is encrypted: {room.encrypted}")
+        self.join_event.set() # Signal that the join is complete
+
+    # Decorator that ensures the client is in a specific room before executing a function.
+    def _in_room(func):
+        async def wrapper(self, room_id, *args, **kwargs):
+            if room_id not in self.rooms:
+                self.log("info", f"Room {room_id} not in known rooms. Waiting for invite.")
+                try:
+                    # Wait for the join event with a timeout
+                    await asyncio.wait_for(self.join_event.wait(), timeout=10)
+                    self.log("info", "Room join event was set.")
+
+                    # Update sync for new room
+                    await asyncio.sleep(5)
+                    await self.sync(timeout=30000, full_state=True)
+                except asyncio.TimeoutError:
+                    self.log("error", "Timed out waiting for room invite.")
+                    raise Exception("Cannot send message: Room was not joined within the timeout.")
+            
+            # Reset the event for the next invite
+            self.join_event.clear()
+            
+            return await func(self, room_id, *args, **kwargs)
+        return wrapper
 
     @_loggedin
+    @_in_room
     async def send_simple_message(self, room_id, message):
         await super().room_send(
             room_id,
