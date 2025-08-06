@@ -66,6 +66,9 @@ def index():
 
         return jsonify({"status": "success"})
     except Exception as e:
+        async def client_close(): await client.close()
+        asyncio.run(client_close())
+
         return jsonify({"status": "error", "message": str(e)})
 
 
