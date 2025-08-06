@@ -25,8 +25,6 @@ HOMESERVER = os.getenv("HOMESERVER")
 USER_ID = os.getenv("USER_ID")
 USER_PASS = os.getenv("USER_PASS")
 
-ROOM_ID = os.getenv("ROOM_ID")
-
 
 # Initialize Matrix client
 client = MatrixClient(
