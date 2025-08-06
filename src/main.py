@@ -38,7 +38,7 @@ client = MatrixClient(
 )
 
 
-async def main(message):
+async def main(room_id, message):
     await client.login(USER_PASS)
 
     # Use full_state=True here to pull any room invites that occurred or
@@ -46,7 +46,7 @@ async def main(message):
     # Matrix server
     await client.sync(timeout=30000, full_state=True)
 
-    await client.send_simple_message(ROOM_ID, message)
+    await client.send_simple_message(room_id, message)
 
     await client.close()
 
@@ -57,11 +57,14 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def index():
     try:
-        # Get message
-        message = request.get_json()["message"]
+        data = request.get_json()
+
+        # Get message and room
+        message = data.get("message")
+        room_id = data.get("room_id")
 
         # TODO: Use Celery instead
-        asyncio.run(main(message))
+        asyncio.run(main(room_id, message))
 
         return jsonify({"status": "success"})
     except Exception as e:
