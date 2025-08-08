@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "8000:8000"
+    volumes:
+      - ./files/backup/:/opt/matrix-notify/files/backup/
     environment:
       BACKUP_PATH: ${BACKUP_PATH}  
       HOMESERVER: ${HOMESERVER}  
