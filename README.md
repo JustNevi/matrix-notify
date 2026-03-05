@@ -13,6 +13,11 @@ docker build -t matrix-notify . # or any tag you want
 ```
 docker run -d --rm --env-file .env -p 8000:8000 matrix-notify:latest
 ```
+or
+
+```
+docker compose up -d
+```
 
 # Examples
 
@@ -30,6 +35,25 @@ ROOM_ID=!sdDSfjasdflkjTESTROOM:matrix.example.org
 ```
 
 # Notes
+
+## Permissions
+
+`Dockerfile`:
+
+```
+#...
+# Change as desired:
+ARG UNAME=appuser
+ARG UID=1000
+ARG GID=1000
+#...
+```
+
+Host:
+
+```
+sudo chown -R 1000:1000 ./files/backup/
+```
 
 ## Backup
 
