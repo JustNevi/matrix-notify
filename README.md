@@ -29,9 +29,6 @@ BACKUP_PATH=../files/backup/
 HOMESERVER=https://matrix.example.org
 USER_ID=example_user_id
 USER_PASS=super-password-123
-
-ROOM_ID=!sdDSfjasdflkjTESTROOM:matrix.example.org
-
 ```
 
 # Notes
